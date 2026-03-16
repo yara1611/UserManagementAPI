@@ -12,51 +12,74 @@ public class UserController : ControllerBase
         new User { Username = "charlie", Password = "letmein789" }
     };
     [HttpGet]
-    public IResult GetUsers()
+    public IActionResult GetUsers()
     {
-        return TypedResults.Ok(Users);
+        return Ok(Users);
     }
 
     [HttpGet("{id}")]
-    public IResult GetUser(int id)
+    public IActionResult GetUser(int id)
     {
-        if (id < 0 || id >= Users.Count || Users[id] == null)
+        try
         {
-            return TypedResults.NotFound("User not found");
+            if (id < 0 || id >= Users.Count)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(Users[id]);
         }
-        return TypedResults.Ok(Users[id]);
+        catch (Exception ex)
+        {
+
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
 
     [HttpPost]
-    public IResult AddUser([FromBody] User user)
+    public IActionResult AddUser([FromBody] User user)
     {
         Users.Add(user);
-        return TypedResults.Ok("User Successfully Added.");
+        return Ok("User Successfully Added");
     }
 
     [HttpPut("{id}")]
-    public IResult EditUser(int id, [FromBody] User newUser)
+    public IActionResult EditUser(int id, [FromBody] User newUser)
     {
-        if (id < 0 || id >= Users.Count || Users[id] == null)
+        try
         {
-            return TypedResults.NotFound("User not found");
+            if (id < 0 || id >= Users.Count)
+            {
+                return NotFound("User not found");
+            }
+            Users[id] = newUser;
+            return Ok("User Successfully Edited.");
+
         }
+        catch (Exception ex)
+        {
 
-        Users[id] = newUser;
-
-        return TypedResults.Ok("User Successfully Edited.");
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
 
     [HttpDelete("{id}")]
-    public IResult DeleteUser(int id)
+    public IActionResult DeleteUser(int id)
     {
-        if (id < 0 || id >= Users.Count || Users[id] == null)
+        try
         {
-            return TypedResults.NotFound("User not found");
+            if (id < 0 || id >= Users.Count)
+            {
+                return NotFound("User not found");
+            }
+            Users.RemoveAt(id);
+            return Ok("User Successfully Deleted.");
         }
-        
-        Users.RemoveAt(id);
+        catch (Exception ex)
+        {
 
-        return TypedResults.Ok("User Successfully Deleted.");
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+
+
     }
 }
