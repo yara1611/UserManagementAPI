@@ -29,3 +29,18 @@ Content-Type: application/json
 
 ### Delete a user (example: id = 2)
 DELETE {{UserManagementAPI_HostAddress}}/api/user/2
+Authorization: Bearer my-secret-token
+
+### Request with valid token
+GET {{UserManagementAPI_HostAddress}}/api/user
+Authorization: Bearer my-secret-token
+
+### Request with invalid token
+GET {{UserManagementAPI_HostAddress}}/api/user
+Authorization: Bearer wrong-token
+
+### Request with no token
+GET {{UserManagementAPI_HostAddress}}/api/user
+
+### Trigger exception
+GET {{UserManagementAPI_HostAddress}}/api/secure-data
