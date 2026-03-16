@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 [ApiController]
-[Route("api/[contoller]")]
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
     private static List<User> Users = new List<User>

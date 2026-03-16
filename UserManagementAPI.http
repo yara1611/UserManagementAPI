@@ -1,15 +1,15 @@
 @UserManagementAPI_HostAddress = http://localhost:5026
 
 ### Get all users
-GET @{{UserManagementAPI_HostAddress}}/api/user
+GET {{UserManagementAPI_HostAddress}}/api/user
 Accept: application/json
 
 ### Get user by ID (example: id = 0)
-GET @{{UserManagementAPI_HostAddress}}/api/user/0
+GET {{UserManagementAPI_HostAddress}}/api/user/0
 Accept: application/json
 
 ### Add a new user
-POST @{{UserManagementAPI_HostAddress}}/api/user
+POST {{UserManagementAPI_HostAddress}}/api/user
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Edit an existing user (example: id = 1)
-PUT @{{UserManagementAPI_HostAddress}}/api/user/1
+PUT {{UserManagementAPI_HostAddress}}/api/user/1
 Content-Type: application/json
 
 {
@@ -27,4 +27,4 @@ Content-Type: application/json
 }
 
 ### Delete a user (example: id = 2)
-DELETE @{{UserManagementAPI_HostAddress}}/api/user/2
+DELETE {{UserManagementAPI_HostAddress}}/api/user/2
