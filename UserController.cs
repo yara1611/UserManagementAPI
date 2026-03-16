@@ -20,11 +20,15 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     public IResult GetUser(int id)
     {
+        if (id < 0 || id >= Users.Count || Users[id] == null)
+        {
+            return TypedResults.NotFound("User not found");
+        }
         return TypedResults.Ok(Users[id]);
     }
 
     [HttpPost]
-    public IResult AddUser([FromBody]User user)
+    public IResult AddUser([FromBody] User user)
     {
         Users.Add(user);
         return TypedResults.Ok("User Successfully Added.");
@@ -33,6 +37,11 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     public IResult EditUser(int id, [FromBody] User newUser)
     {
+        if (id < 0 || id >= Users.Count || Users[id] == null)
+        {
+            return TypedResults.NotFound("User not found");
+        }
+
         Users[id] = newUser;
 
         return TypedResults.Ok("User Successfully Edited.");
@@ -41,6 +50,11 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public IResult DeleteUser(int id)
     {
+        if (id < 0 || id >= Users.Count || Users[id] == null)
+        {
+            return TypedResults.NotFound("User not found");
+        }
+        
         Users.RemoveAt(id);
 
         return TypedResults.Ok("User Successfully Deleted.");
